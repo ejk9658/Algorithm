@@ -1,8 +1,9 @@
-package swexpertacademy;
+package com.ssafy.swea.d2;
 
-import java.util.*;
+import java.util.Scanner;
 
-public class Solution_D2_1961 {
+public class Solution_1961 {
+
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);

@@ -1,9 +1,9 @@
-package swexpertacademy;
+package com.ssafy.swea.d2;
 
-import java.util.*;
- 
-public class Solution_D2_2001 {
- 
+import java.util.Scanner;
+
+public class Solution_2001 {
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
          
@@ -33,5 +33,4 @@ public class Solution_D2_2001 {
             System.out.println("#"+tc+" "+answer);
         }
     }
- 
 }
