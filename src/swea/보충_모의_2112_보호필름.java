@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Solution_모의_2112_보호필름 {
+public class 보충_모의_2112_보호필름 {
 
 	static int D, W, K, map[][], ans;
 	static boolean combiArr[], fin;
