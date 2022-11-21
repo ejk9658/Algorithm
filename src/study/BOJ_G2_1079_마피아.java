@@ -56,7 +56,6 @@ public class BOJ_G2_1079_마피아 {
 			
 		}
 		for (int i = 0; i < R.length; i++) {
-			
 		}
 		
 	}
