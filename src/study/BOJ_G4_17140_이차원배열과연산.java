@@ -18,6 +18,7 @@ public class BOJ_G4_17140_이차원배열과연산 {
 		}
 		@Override
 		public int compareTo(Node o) {
+//			return Long.compare(this.count, o.count);	// Long형일 경우 overflow를 방지한다.
 			if(this.count == o.count) return this.number - o.number;
 			return this.count - o.count;
 		}
