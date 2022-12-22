@@ -1,17 +1,15 @@
 package swea;
-
+// subset
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class 보충_모의_2112_보호필름 {
 
 	static int D, W, K, map[][], ans;
-	static boolean change[], fin; 
+	static boolean combiArr[], fin;
 	
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -23,7 +21,7 @@ public class 보충_모의_2112_보호필름 {
 			D = Integer.parseInt(st.nextToken());
 			W = Integer.parseInt(st.nextToken());
 			K = Integer.parseInt(st.nextToken());
-			map = new int [D][W];
+			map = new int[D][W];
 			for (int d = 0; d < D; d++) {
 				st = new StringTokenizer(br.readLine());
 				for (int w = 0; w < W; w++) {
@@ -31,72 +29,69 @@ public class 보충_모의_2112_보호필름 {
 				}
 			} //read
 			
-			ans = 0;	// 약품의 최소 투입 횟수
-			
-			if(!pass(map)) {	// 1. 합격기준을 만족시키지 못할 경우
-				for (int d = 1; d <= D; d++) {	// 약품을 1~D번 투입할 것이다.
-					change = new boolean[D];	// change[] : 1에 해당하는 인덱스와 일치하는 map의 행을 찾아 약품을 투입한다.
-					fin = false;
-					combi(0,0,d);
-					System.out.println("------");
-				}
+			ans = 0;
+			fin = false;	// 성능검사를 통과하는 경우, 로직을 강제 종료할거임
+			if(!pass(map)) {	// 성능검사를 통과하지 않는 경우 해당 로직을 수행하고, 통과하는 경우 바로 ans(0)를 리턴한다.
+				go();
 			}
-			sb.append("#").append(tc).append(" ").append(ans).append("\n");
 			
+			sb.append("#").append(tc).append(" ").append(ans).append("\n");
 		}
 		System.out.println(sb.toString());
 	}
 
+	private static void go() {
+		for (int k = 1; k < K; k++) {
+			int[][] mapCopy = new int [D][W];
+			for (int d = 0; d < D; d++) {
+				mapCopy[d] = Arrays.copyOf(map[d], W);
+			}
+			subset(0, mapCopy, 0, k);
+			if(fin) return;
+		}
+		ans = K;	// 위의 for문을 모두 수행해도 성능 검사를 통과하지 못했다면, 답은 K이다.(K가 최악이기 때문이다.)
+	}
+
+	private static void subset(int d, int[][] mapCopy, int kCnt, int k) {
+		if(d == D) {
+			if(kCnt!=k) return;
+			if(pass(mapCopy)) {	// 성능검사를 통과한 경우
+				ans = k;
+				fin = true;
+			}
+			return;
+		}
+		if(kCnt==k) {
+			subset(d+1, mapCopy, kCnt, k);
+		} else {
+			Arrays.fill(mapCopy[d], 0);
+			subset(d+1, mapCopy, kCnt+1, k);
+			Arrays.fill(mapCopy[d], 1);
+			subset(d+1, mapCopy, kCnt+1, k);
+			mapCopy[d] = Arrays.copyOf(map[d], W);
+			subset(d+1, mapCopy, kCnt, k);
+		}
+	}
+
 	private static boolean pass(int[][] arr) {
-		int cnt = 0;	// cnt : 모든 열이 합격기준을 만족하였는지 확인
+		int cnt1 = 0;	// 몇 번 연속되었는지 확인
 		for (int w = 0; w < W; w++) {
-			int rep = 1;	// rep : 셀의 특성이 몇 번 반복되었는지 확인
-			int temp = arr[0][w];	// temp : 비교할 0번째 행의 셀의 특성
-			for (int d = 1; d < D; d++) {	// 1번째 행부터 D-1번 행까지 비교 시작
+			int cnt2 = 1;	// 몇 번 연속되었는지 확인
+			int temp = arr[0][w];	// 처음에 비교할 값
+			for (int d = 1; d < D; d++) {
 				if(temp == arr[d][w]) {
-					rep++;
-					if(rep >= K) {
-						cnt ++;
-						break;
-					}
+					cnt2++;
 				} else {
 					temp = arr[d][w];
-					rep = 1;
+					cnt2 = 1;
+				}
+				if(cnt2 == K) {
+					cnt1++;
+					break;
 				}
 			}
 		}
-		return cnt==W?true:false;
+		return cnt1==W?true:false;
 	}
 
-	private static void combi(int start, int cnt, int d) {
-		if(cnt==d) {
-			System.out.println(Arrays.toString(change));
-			// 3. 약품을 투입한다.
-			go();
-			return;
-		}
-		for (int i = start; i < D; i++) {
-			change[i] = true;
-			combi(i+1, cnt+1, d);
-			if(fin) return;
-			change[i] = false;
-			
-		}
-	}
-
-	private static void go() {
-		int temp[][] = new int[D][W];
-		for (int i = 0; i < D; i++) {
-			temp[i] = Arrays.copyOf(map[i], W);
-		}
-		for (int i = 0; i < D; i++) {
-			if(change[i]) {	// 약품을 투입해야 하는 경우
-				// 3-1. 0으로 투입하는 경우
-				Arrays.fill(temp[i], 0);
-				
-				
-			}
-		}
-	}
-	
 }
