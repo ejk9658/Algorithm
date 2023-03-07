@@ -18,5 +18,8 @@ public class ExchangeStringToArray {
 		// 3. string[] 로 변환
 		String[] sa = s.split("");
 		
+		// 4. 번외) char[] -> String 로 변환
+		String ss = new String(ca);
+		System.out.print(ss);
 	}
 }
