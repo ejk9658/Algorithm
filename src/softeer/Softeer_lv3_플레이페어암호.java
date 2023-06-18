@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.*;
 
 
-public class softeer_lv3_플레이페어암호
+public class Softeer_lv3_플레이페어암호
 {
     static char cmap[][];
     static int imap[];
