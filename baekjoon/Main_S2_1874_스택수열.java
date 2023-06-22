@@ -6,13 +6,12 @@ import java.util.*;
 public class Main_S2_1874_스택수열 {
 
 	static StringBuilder sb;
-	static int N, map[];
 	static LinkedList<Integer> stack;
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		sb = new StringBuilder();
-		N = Integer.parseInt(br.readLine());
-		map = new int[N];
+		int N = Integer.parseInt(br.readLine());
+		int map[] = new int[N];
 		for(int i=0; i<N; i++) {
 			map[i] = Integer.parseInt(br.readLine());
 		} //read
