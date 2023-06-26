@@ -3,7 +3,7 @@ package baekjoon;
 import java.io.*;
 import java.util.*;
 
-public class Main_B2_2750_수정렬하기_버블정렬 {
+public class Main_B2_2750_수정렬하기_3삽입정렬 {
 	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -14,24 +14,25 @@ public class Main_B2_2750_수정렬하기_버블정렬 {
 		} //read
 		StringBuilder sb = new StringBuilder();
 //		Arrays.sort(arr);
-		arr = bubbleSort(arr, N);	// 버블정렬 O(n^2)
+		arr = insertionSort(arr, N);	// 삽입정렬 O(n^2)
 		for(int i=0; i<N; i++) {
 			sb.append(arr[i]).append("\n");
 		}
 		System.out.println(sb.toString());
 	}
-	// 버블정렬 O(n^2)
-	// 인접한 두 숫자를 비교해서 swap 하면서 자리를 찾아간다.
-	// 마지막 인덱스(최댓값)부터 정렬된다.
-	static int[] bubbleSort(int[] arr, int N) {
-		for(int i=0; i<N-1; i++) {
-			for(int j=0; j<N-1-i; j++) {
-				if(arr[j] > arr[j+1]) {
-					int temp = arr[j];
-					arr[j] = arr[j+1];
-					arr[j+1] = temp;
-				}
+	// 삽입정렬 O(n^2)
+	// 정렬하면서 자신의 위치를 찾아 삽입한다.
+	// 처음 인덱스부터 정렬된다.
+	static int[] insertionSort(int[] arr, int N) {
+		for(int i=1; i<N; i++) {	// 1번째 인덱스부터 시작해서 자신의 위치를 찾는다
+			int idx = i;
+			while(idx>0 && arr[i] < arr[idx-1]) idx--;
+			
+			int temp = arr[i];
+			for(int j=i; j>idx; j--) {
+				arr[j] = arr[j-1];
 			}
+			arr[idx] = temp;
 		}
 		return arr;
 	}
